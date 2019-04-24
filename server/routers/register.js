@@ -11,23 +11,53 @@ router.post("/register", (req, res) => {
   let password_md5 = md5(password);
   let password_sha256 = sha256(password);
   mysql.query(
-    "insert into user set username = ?, password_md5 = ?, password_sha256 = ?, email = ?, address = ?,gender = ?, real_name = ?",
-    [username, password_md5, password_sha256, email, address, gender, realName],
+    "select * from user where username = ?",
+    [username],
     (err, result) => {
       if (err) {
         console.log(err);
+        return;
+      }
+      if (!result) {
+        console.log("error, no result");
+        return;
+      }
+      if (result.length) {
+        console.log("error, user already exist");
         res.json({
           status: "failed",
-          message: ""
+          message: "user already exist"
         });
         return;
       }
-      if (result) {
-        console.log(result);
-      }
-      res.json({
-        status: "success"
-      });
+      mysql.query(
+        "insert into user set username = ?, password_md5 = ?, password_sha256 = ?, email = ?, address = ?,gender = ?, real_name = ?",
+        [
+          username,
+          password_md5,
+          password_sha256,
+          email,
+          address,
+          gender,
+          realName
+        ],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.json({
+              status: "failed",
+              message: ""
+            });
+            return;
+          }
+          if (result) {
+            console.log(result);
+          }
+          res.json({
+            status: "success"
+          });
+        }
+      );
     }
   );
 });
