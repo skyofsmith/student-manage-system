@@ -8,6 +8,12 @@ router.post("/register", (req, res) => {
   console.log("post: /register", req.body);
   // mysql.connect();
   let { username, password, email, address, gender, realName } = req.body;
+  if (!username || !password) {
+    res.json({
+      status: "failed",
+      message: "username or password can not be empty"
+    });
+  }
   let password_md5 = md5(password);
   let password_sha256 = sha256(password);
   mysql.query(
