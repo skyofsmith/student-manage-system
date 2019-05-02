@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("../utils/mysql");
+const userLog = require("../utils/logUser");
 // const { md5, sha256 } = require("../utils/hash");
 
 const router = express.Router();
@@ -32,6 +33,7 @@ router.post("/findUser", (req, res) => {
           message: "username or password not correct"
         });
       }
+      userLog(username, "findUser");
       res.json({
         status: "success",
         data: result.map
