@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("../utils/mysql");
+const userLog = require("../utils/logUser");
 const { md5, sha256 } = require("../utils/hash");
 
 const router = express.Router();
@@ -54,6 +55,7 @@ router.post("/delete", (req, res) => {
             });
             return;
           }
+          userLog(username, "modifyInfo");
           res.json({
             status: "success",
             message: "delete success"
