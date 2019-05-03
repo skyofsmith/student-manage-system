@@ -55,7 +55,7 @@ router.post("/delete", (req, res) => {
             });
             return;
           }
-          userLog(username, "modifyInfo");
+          userLog(username, "delete");
           res.json({
             status: "success",
             message: "delete success"
