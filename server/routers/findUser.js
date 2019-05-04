@@ -36,6 +36,7 @@ router.post("/findUser", (req, res) => {
       userLog(username, "findUser");
       res.json({
         status: "success",
+        message: "findUser success",
         data: result.map
       });
     }

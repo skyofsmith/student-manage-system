@@ -62,7 +62,8 @@ router.post("/register", (req, res) => {
           }
           userLog(username, "register");
           res.json({
-            status: "success"
+            status: "success",
+            message: "register success"
           });
         }
       );

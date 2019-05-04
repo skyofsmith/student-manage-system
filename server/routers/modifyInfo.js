@@ -34,7 +34,8 @@ router.post("/modifyInfo", (req, res) => {
       }
       userLog(username, "modifyInfo");
       res.json({
-        status: "success"
+        status: "success",
+        message: "modifyInfo success"
       });
     }
   );
